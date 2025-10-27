@@ -10,8 +10,8 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ClinicalCategoryController;
 use App\Http\Controllers\TherapyActionCodeController;
 use App\Http\Controllers\RoleController;
-use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 
 Route::get('/', function () {
@@ -30,11 +30,8 @@ Route::get('/struktur-organisasi', function () {
     return view('struktur-org');
 })->name('struktur-org');
 
-
-Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [LoginController::class, 'login'])->name('login.post');
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-
+// Laravel UI Authentication Routes
+Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
    
@@ -50,5 +47,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('kategori-klinis', ClinicalCategoryController::class);
     Route::resource('kode-tindakan-terapi', TherapyActionCodeController::class);
     Route::resource('role', RoleController::class);
+    
+    // Home route (from Laravel UI)
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home.dashboard');
 });
-

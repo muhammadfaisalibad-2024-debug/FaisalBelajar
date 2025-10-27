@@ -122,7 +122,7 @@
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                            <i class="bi bi-person-circle"></i> {{ Auth::user()->name ?? 'User' }}
+                            <i class="bi bi-person-circle"></i> {{ Auth::user()->nama ?? 'User' }}
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li><a class="dropdown-item" href="#">
@@ -130,7 +130,7 @@
                             </a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li>
-                                <form method="POST" action="{{ route('logout') ?? '#' }}">
+                                <form method="POST" action="{{ route('logout') }}">
                                     @csrf
                                     <button type="submit" class="dropdown-item">
                                         <i class="bi bi-box-arrow-right"></i> Logout
