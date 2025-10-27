@@ -37,7 +37,7 @@ class UserController extends Controller
             'password' => Hash::make($validated['password']),
         ]);
 
-        // Attach roles with default status
+    
         foreach ($validated['roles'] as $roleId) {
             $user->roles()->attach($roleId, ['status' => 1]);
         }
@@ -71,7 +71,7 @@ class UserController extends Controller
             $user->update(['password' => Hash::make($validated['password'])]);
         }
 
-        // Sync roles with status
+    
         $syncData = [];
         foreach ($validated['roles'] as $roleId) {
             $syncData[$roleId] = ['status' => 1];

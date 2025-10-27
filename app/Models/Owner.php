@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Owner extends Model
 {
-    public $timestamps = false; // Disable timestamps untuk tabel native
+    public $timestamps = false;
 
     protected $table = 'pemilik';
     protected $primaryKey = 'idpemilik';
@@ -19,25 +19,18 @@ class Owner extends Model
         'iduser',
     ];
 
-    /**
-     * Get the route key for the model.
-     */
     public function getRouteKeyName(): string
     {
         return 'idpemilik';
     }
 
-    /**
-     * Get the pets owned by this owner.
-     */
+   
     public function pets(): HasMany
     {
         return $this->hasMany(Pet::class, 'idpemilik', 'idpemilik');
     }
 
-    /**
-     * Get the user of this owner.
-     */
+    
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'iduser', 'iduser');

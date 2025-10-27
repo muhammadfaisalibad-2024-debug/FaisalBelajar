@@ -11,9 +11,7 @@ use Illuminate\Support\Facades\Storage;
 
 class PetController extends Controller
 {
-    /**
-     * Display a listing of pets.
-     */
+    
     public function index()
     {
         $pets = Pet::with(['owner', 'animalBreed.animalType'])
@@ -22,9 +20,7 @@ class PetController extends Controller
         return view('admin.pet.index', compact('pets'));
     }
 
-    /**
-     * Show the form for creating a new pet.
-     */
+    
     public function create()
     {
         $owners = Owner::with('user')->get();
@@ -32,9 +28,7 @@ class PetController extends Controller
         return view('admin.pet.create', compact('owners', 'animalTypes'));
     }
 
-    /**
-     * Store a newly created pet.
-     */
+   
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -52,9 +46,7 @@ class PetController extends Controller
             ->with('success', 'Data hewan berhasil ditambahkan.');
     }
 
-    /**
-     * Show the form for editing the pet.
-     */
+    
     public function edit(Pet $pet)
     {
         $owners = Owner::with('user')->get();
@@ -66,9 +58,7 @@ class PetController extends Controller
         return view('admin.pet.edit', compact('pet', 'owners', 'animalTypes', 'animalBreeds'));
     }
 
-    /**
-     * Update the specified pet.
-     */
+    
     public function update(Request $request, Pet $pet)
     {
         $validated = $request->validate([
@@ -86,9 +76,7 @@ class PetController extends Controller
             ->with('success', 'Data hewan berhasil diperbarui.');
     }
 
-    /**
-     * Remove the specified pet.
-     */
+    
     public function destroy(Pet $pet)
     {
         $pet->delete();
@@ -97,9 +85,7 @@ class PetController extends Controller
             ->with('success', 'Data hewan berhasil dihapus.');
     }
 
-    /**
-     * Get breeds by animal type (AJAX).
-     */
+    
     public function getBreedsByType($animalTypeId)
     {
         $breeds = AnimalBreed::where('idjenis_hewan', $animalTypeId)

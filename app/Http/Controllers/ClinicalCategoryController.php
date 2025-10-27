@@ -16,17 +16,12 @@ class ClinicalCategoryController extends Controller
         return view('admin.kategori-klinis.index', compact('clinicalCategories'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('admin.kategori-klinis.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -39,25 +34,19 @@ class ClinicalCategoryController extends Controller
                          ->with('success', 'Kategori klinis berhasil ditambahkan.');
     }
 
-    /**
-     * Display the specified resource.
-     */
+
     public function show(ClinicalCategory $kategoriKlinis)
     {
         return view('admin.kategori-klinis.show', compact('kategoriKlinis'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    
     public function edit(ClinicalCategory $kategoriKlinis)
     {
         return view('admin.kategori-klinis.edit', compact('kategoriKlinis'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+   
     public function update(Request $request, ClinicalCategory $kategoriKlinis)
     {
         $validated = $request->validate([
@@ -70,9 +59,7 @@ class ClinicalCategoryController extends Controller
                          ->with('success', 'Kategori klinis berhasil diperbarui.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy(ClinicalCategory $kategoriKlinis)
     {
         $kategoriKlinis->delete();

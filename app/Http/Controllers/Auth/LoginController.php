@@ -9,9 +9,7 @@ use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
-    /**
-     * Show the login form.
-     */
+  
     public function showLoginForm()
     {
         if (Auth::check()) {
@@ -21,9 +19,7 @@ class LoginController extends Controller
         return view('auth.login');
     }
 
-    /**
-     * Handle login request.
-     */
+   
     public function login(Request $request)
     {
         $request->validate([
@@ -31,7 +27,7 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
 
-        // Login menggunakan nama (username) seperti sistem lama
+      
         $credentials = [
             'nama' => $request->username,
             'password' => $request->password,
@@ -42,21 +38,21 @@ class LoginController extends Controller
         if (Auth::attempt($credentials, $remember)) {
             $request->session()->regenerate();
             
-            // Redirect berdasarkan role seperti sistem lama
+        
             $user = Auth::user();
             $activeRole = $user->roles()->wherePivot('status', '1')->first();
             
             if ($activeRole) {
                 switch ($activeRole->idrole) {
-                    case 1: // Admin
+                    case 1: 
                         return redirect('/dashboard');
-                    case 4: // Resepsionis
+                    case 4: 
                         return redirect('/dashboard');
-                    case 3: // Perawat
+                    case 3: 
                         return redirect('/dashboard');
-                    case 9: // Dokter
+                    case 9: 
                         return redirect('/dashboard');
-                    case 11: // Pemilik
+                    case 11: 
                         return redirect('/');
                     default:
                         Auth::logout();
@@ -73,9 +69,7 @@ class LoginController extends Controller
         ])->onlyInput('username');
     }
 
-    /**
-     * Handle logout request.
-     */
+ 
     public function logout(Request $request)
     {
         Auth::logout();

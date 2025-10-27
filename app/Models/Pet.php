@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class Pet extends Model
 {
-    public $timestamps = false; // Disable timestamps untuk tabel native
+    public $timestamps = false; 
 
     protected $table = 'pet';
     protected $primaryKey = 'idpet';
@@ -26,48 +26,38 @@ class Pet extends Model
         'tanggal_lahir' => 'date',
     ];
 
-    /**
-     * Get the route key for the model.
-     */
+   
     public function getRouteKeyName(): string
     {
         return 'idpet';
     }
 
-    /**
-     * Get the owner of the pet.
-     */
+    
     public function owner(): BelongsTo
     {
         return $this->belongsTo(Owner::class, 'idpemilik', 'idpemilik');
     }
 
-    /**
-     * Get the breed of the pet.
-     */
+   
     public function animalBreed(): BelongsTo
     {
         return $this->belongsTo(AnimalBreed::class, 'idras_hewan', 'idras_hewan');
     }
 
-    /**
-     * Get the animal type through breed.
-     */
+   
     public function animalType()
     {
         return $this->hasOneThrough(
             AnimalType::class,
             AnimalBreed::class,
-            'idras_hewan', // FK on animal_breeds table
-            'idjenis_hewan', // FK on animal_types table
-            'idras_hewan', // Local key on pets table
-            'idjenis_hewan' // Local key on animal_breeds table
+            'idras_hewan', 
+            'idjenis_hewan', 
+            'idras_hewan', 
+            'idjenis_hewan' 
         );
     }
 
-    /**
-     * Get the pet's age.
-     */
+    
     protected function age(): Attribute
     {
         return Attribute::make(
