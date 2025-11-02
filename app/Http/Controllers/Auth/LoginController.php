@@ -93,22 +93,22 @@ class LoginController extends Controller
         
         if ($activeRole) {
             switch ($activeRole->idrole) {
-                case 1: 
+                case 1: // Admin
                     return redirect('/dashboard')->with('success', 'Selamat datang, ' . $user->nama);
-                case 4: 
-                    return redirect('/dashboard')->with('success', 'Selamat datang, ' . $user->nama);
-                case 3: 
-                    return redirect('/dashboard')->with('success', 'Selamat datang, ' . $user->nama);
-                case 9: 
-                    return redirect('/dashboard')->with('success', 'Selamat datang, ' . $user->nama);
-                case 11:
+                case 3: // Perawat
+                    return redirect('/perawat/dashboard')->with('success', 'Selamat datang, ' . $user->nama);
+                case 4: // Resepsionis
+                    return redirect('/resepsionis/dashboard')->with('success', 'Selamat datang, ' . $user->nama);
+                case 9: // Dokter
+                    return redirect('/dokter/dashboard')->with('success', 'Selamat datang, ' . $user->nama);
+                case 11: // Pemilik
                     return redirect('/')->with('success', 'Selamat datang, ' . $user->nama);
                 default:
                     return redirect('/dashboard')->with('success', 'Selamat datang, ' . $user->nama);
             }
         }
         
-       
+        // Fallback jika tidak ada role aktif
         return redirect()->intended($this->redirectPath());
     }
 

@@ -10,6 +10,15 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ClinicalCategoryController;
 use App\Http\Controllers\TherapyActionCodeController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\Perawat\PerawatDashboardController;
+use App\Http\Controllers\Perawat\RekamMedisController;
+use App\Http\Controllers\Perawat\DetailRekamController;
+use App\Http\Controllers\Resepsionis\ResepsonisDashboardController;
+use App\Http\Controllers\Resepsionis\TemuDokterController;
+use App\Http\Controllers\Dokter\DokterDashboardController;
+use App\Http\Controllers\Dokter\DokterRekamMedisController;
+use App\Http\Controllers\Dokter\DokterPetController;
+use App\Http\Controllers\Dokter\DokterTemuDokterController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -34,8 +43,50 @@ Route::get('/struktur-organisasi', function () {
 Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
-   
+    // Admin Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    
+    // Perawat Routes
+    Route::get('/perawat/dashboard', [PerawatDashboardController::class, 'index'])->name('perawat.dashboard');
+    Route::resource('perawat/rekam-medis', RekamMedisController::class)->names([
+        'index' => 'perawat.rekam-medis.index',
+        'create' => 'perawat.rekam-medis.create',
+        'store' => 'perawat.rekam-medis.store',
+        'show' => 'perawat.rekam-medis.show',
+        'edit' => 'perawat.rekam-medis.edit',
+        'update' => 'perawat.rekam-medis.update',
+        'destroy' => 'perawat.rekam-medis.destroy',
+    ]);
+    Route::resource('perawat/detail-rekam', DetailRekamController::class)->names([
+        'index' => 'perawat.detail-rekam.index',
+        'create' => 'perawat.detail-rekam.create',
+        'store' => 'perawat.detail-rekam.store',
+        'edit' => 'perawat.detail-rekam.edit',
+        'update' => 'perawat.detail-rekam.update',
+        'destroy' => 'perawat.detail-rekam.destroy',
+    ])->except(['show']);
+    
+    // Resepsionis Routes
+    Route::get('/resepsionis/dashboard', [ResepsonisDashboardController::class, 'index'])->name('resepsionis.dashboard');
+    Route::resource('resepsionis/temu-dokter', TemuDokterController::class)->names([
+        'index' => 'resepsionis.temu-dokter.index',
+        'create' => 'resepsionis.temu-dokter.create',
+        'store' => 'resepsionis.temu-dokter.store',
+        'edit' => 'resepsionis.temu-dokter.edit',
+        'update' => 'resepsionis.temu-dokter.update',
+        'destroy' => 'resepsionis.temu-dokter.destroy',
+    ])->except(['show']);
+    
+    // Dokter Routes (View Only)
+    Route::get('/dokter/dashboard', [DokterDashboardController::class, 'index'])->name('dokter.dashboard');
+    Route::get('/dokter/rekam-medis', [DokterRekamMedisController::class, 'index'])->name('dokter.rekam-medis.index');
+    Route::get('/dokter/rekam-medis/{id}', [DokterRekamMedisController::class, 'show'])->name('dokter.rekam-medis.show');
+    Route::get('/dokter/pet', [DokterPetController::class, 'index'])->name('dokter.pet.index');
+    Route::get('/dokter/pet/{id}', [DokterPetController::class, 'show'])->name('dokter.pet.show');
+    Route::get('/dokter/temu-dokter', [DokterTemuDokterController::class, 'index'])->name('dokter.temu-dokter.index');
+    Route::get('/dokter/temu-dokter/{id}', [DokterTemuDokterController::class, 'show'])->name('dokter.temu-dokter.show');
+    
+    // Resource Routes (Admin)
     Route::resource('user', UserController::class);
     Route::resource('pemilik', OwnerController::class);
     Route::resource('pet', PetController::class);

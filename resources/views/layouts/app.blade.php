@@ -67,7 +67,24 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{{ route('dashboard') }}">
+            @php
+                $user = Auth::user();
+                $isAdmin = $user->roles()->wherePivot('status', '1')->where('role.idrole', 1)->exists();
+                $isPerawat = $user->roles()->wherePivot('status', '1')->where('role.idrole', 3)->exists();
+                $isResepsionis = $user->roles()->wherePivot('status', '1')->where('role.idrole', 4)->exists();
+                $isDokter = $user->roles()->wherePivot('status', '1')->where('role.idrole', 9)->exists();
+                
+                $dashboardRoute = route('dashboard'); // default
+                if ($isPerawat) {
+                    $dashboardRoute = route('perawat.dashboard');
+                } elseif ($isResepsionis) {
+                    $dashboardRoute = route('resepsionis.dashboard');
+                } elseif ($isDokter) {
+                    $dashboardRoute = route('dokter.dashboard');
+                }
+            @endphp
+            
+            <a class="navbar-brand" href="{{ $dashboardRoute }}">
                 <i class="bi bi-hospital"></i> RSHP
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -76,11 +93,13 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" 
-                           href="{{ route('dashboard') }}">
+                        <a class="nav-link {{ request()->routeIs('dashboard') || request()->routeIs('*.dashboard') ? 'active' : '' }}" 
+                           href="{{ $dashboardRoute }}">
                             <i class="bi bi-speedometer2"></i> Dashboard
                         </a>
                     </li>
+                    
+                    @if($isAdmin)
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
                             <i class="bi bi-database"></i> Data Master
@@ -118,6 +137,7 @@
                             </a></li>
                         </ul>
                     </li>
+                    @endif
                 </ul>
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
