@@ -60,17 +60,11 @@ class RekamMedisController extends Controller
             abort(403, 'Unauthorized - Anda tidak memiliki akses sebagai Perawat.');
         }
 
-        $validated = $request->validate([
-            'idreservasi_dokter' => 'required|exists:temu_dokter,idreservasi_dokter',
-            'dokter_pemeriksa' => 'required|exists:user,iduser',
-            'anamnesa' => 'required|string',
-            'temuan_klinis' => 'nullable|string',
-            'diagnosa' => 'nullable|string',
-        ]);
+        $validated = $this->validateRekamMedis($request);
 
         $validated['created_at'] = now();
 
-        RekamMedis::create($validated);
+        $this->createRekamMedis($validated);
 
         return redirect()->route('perawat.rekam-medis.index')
             ->with('success', 'Rekam medis berhasil ditambahkan.');
@@ -116,13 +110,7 @@ class RekamMedisController extends Controller
             abort(403, 'Unauthorized - Anda tidak memiliki akses sebagai Perawat.');
         }
 
-        $validated = $request->validate([
-            'idreservasi_dokter' => 'required|exists:temu_dokter,idreservasi_dokter',
-            'dokter_pemeriksa' => 'required|exists:user,iduser',
-            'anamnesa' => 'required|string',
-            'temuan_klinis' => 'nullable|string',
-            'diagnosa' => 'nullable|string',
-        ]);
+        $validated = $this->validateRekamMedis($request, $id);
 
         $rekamMedis = RekamMedis::findOrFail($id);
         $rekamMedis->update($validated);
@@ -145,5 +133,26 @@ class RekamMedisController extends Controller
 
         return redirect()->route('perawat.rekam-medis.index')
             ->with('success', 'Rekam medis berhasil dihapus.');
+    }
+
+    // Validation helper for Rekam Medis
+    protected function validateRekamMedis(Request $request, $id = null)
+    {
+        return $request->validate([
+            'idreservasi_dokter' => 'required|exists:temu_dokter,idreservasi_dokter',
+            'dokter_pemeriksa' => 'required|exists:user,iduser',
+            'anamnesa' => 'required|string',
+            'temuan_klinis' => 'nullable|string',
+            'diagnosa' => 'nullable|string',
+        ]);
+    }
+
+    protected function createRekamMedis(array $data)
+    {
+        try {
+            return RekamMedis::create($data);
+        } catch (\Exception $e) {
+            throw new \Exception('Gagal menyimpan rekam medis: ' . $e->getMessage());
+        }
     }
 }

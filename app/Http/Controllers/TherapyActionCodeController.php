@@ -27,14 +27,9 @@ class TherapyActionCodeController extends Controller
     
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'kode' => 'required|string|max:5',
-            'deskripsi_tindakan_terapi' => 'required|string|max:100',
-            'idkategori' => 'required|exists:kategori,idkategori',
-            'idkategori_klinis' => 'required|exists:kategori_klinis,idkategori_klinis',
-        ]);
+        $validated = $this->validateTherapyCode($request);
 
-        TherapyActionCode::create($validated);
+        $this->createTherapyCode($validated);
 
         return redirect()->route('kode-tindakan-terapi.index')
                          ->with('success', 'Kode tindakan terapi berhasil ditambahkan.');
@@ -59,12 +54,7 @@ class TherapyActionCodeController extends Controller
    
     public function update(Request $request, TherapyActionCode $kodeTindakanTerapi)
     {
-        $validated = $request->validate([
-            'kode' => 'required|string|max:5',
-            'deskripsi_tindakan_terapi' => 'required|string|max:100',
-            'idkategori' => 'required|exists:kategori,idkategori',
-            'idkategori_klinis' => 'required|exists:kategori_klinis,idkategori_klinis',
-        ]);
+        $validated = $this->validateTherapyCode($request, $kodeTindakanTerapi->idkode_tindakan_terapi);
 
         $kodeTindakanTerapi->update($validated);
 
@@ -79,5 +69,25 @@ class TherapyActionCodeController extends Controller
 
         return redirect()->route('kode-tindakan-terapi.index')
                          ->with('success', 'Kode tindakan terapi berhasil dihapus.');
+    }
+
+    // Validation helper for therapy action codes
+    protected function validateTherapyCode(Request $request, $id = null)
+    {
+        return $request->validate([
+            'kode' => 'required|string|max:5',
+            'deskripsi_tindakan_terapi' => 'required|string|max:100',
+            'idkategori' => 'required|exists:kategori,idkategori',
+            'idkategori_klinis' => 'required|exists:kategori_klinis,idkategori_klinis',
+        ]);
+    }
+
+    protected function createTherapyCode(array $data)
+    {
+        try {
+            return TherapyActionCode::create($data);
+        } catch (\Exception $e) {
+            throw new \Exception('Gagal menyimpan kode tindakan terapi: ' . $e->getMessage());
+        }
     }
 }

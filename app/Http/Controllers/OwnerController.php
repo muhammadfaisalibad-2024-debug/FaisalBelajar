@@ -24,13 +24,9 @@ class OwnerController extends Controller
     
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'no_wa' => 'nullable|string|max:45',
-            'alamat' => 'nullable|string|max:100',
-            'iduser' => 'required|exists:user,iduser',
-        ]);
+        $validated = $this->validateOwner($request);
 
-        Owner::create($validated);
+        $this->createOwner($validated);
 
         return redirect()->route('pemilik.index')
             ->with('success', 'Data pemilik berhasil ditambahkan.');
@@ -46,11 +42,7 @@ class OwnerController extends Controller
    
     public function update(Request $request, Owner $pemilik)
     {
-        $validated = $request->validate([
-            'no_wa' => 'nullable|string|max:45',
-            'alamat' => 'nullable|string|max:100',
-            'iduser' => 'required|exists:user,iduser',
-        ]);
+        $validated = $this->validateOwner($request, $pemilik->idpemilik);
 
         $pemilik->update($validated);
 
@@ -65,5 +57,23 @@ class OwnerController extends Controller
 
         return redirect()->route('pemilik.index')
             ->with('success', 'Data pemilik berhasil dihapus.');
+    }
+
+    protected function validateOwner(Request $request, $id = null)
+    {
+        return $request->validate([
+            'no_wa' => 'nullable|string|max:45',
+            'alamat' => 'nullable|string|max:100',
+            'iduser' => 'required|exists:user,iduser',
+        ]);
+    }
+
+    protected function createOwner(array $data)
+    {
+        try {
+            return Owner::create($data);
+        } catch (\Exception $e) {
+            throw new \Exception('Gagal menyimpan data pemilik: ' . $e->getMessage());
+        }
     }
 }

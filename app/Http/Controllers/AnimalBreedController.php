@@ -21,12 +21,9 @@ class AnimalBreedController extends Controller
     }
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'nama_ras' => 'required|string|max:100',
-            'idjenis_hewan' => 'required|exists:jenis_hewan,idjenis_hewan',
-        ]);
+        $validated = $this->validateRas($request);
 
-        AnimalBreed::create($validated);
+        $this->createRas($validated);
 
         return redirect()->route('ras-hewan.index')
                          ->with('success', 'Ras hewan berhasil ditambahkan.');
@@ -47,10 +44,7 @@ class AnimalBreedController extends Controller
 
     public function update(Request $request, AnimalBreed $rasHewan)
     {
-        $validated = $request->validate([
-            'nama_ras' => 'required|string|max:100',
-            'idjenis_hewan' => 'required|exists:jenis_hewan,idjenis_hewan',
-        ]);
+        $validated = $this->validateRas($request, $rasHewan->idras_hewan);
 
         $rasHewan->update($validated);
 
@@ -65,5 +59,24 @@ class AnimalBreedController extends Controller
 
         return redirect()->route('ras-hewan.index')
                          ->with('success', 'Ras hewan berhasil dihapus.');
+    }
+
+    // Validation helper for Animal Breed
+    protected function validateRas(Request $request, $id = null)
+    {
+        // if there's a uniqueness rule needed, add it here
+        return $request->validate([
+            'nama_ras' => 'required|string|max:100',
+            'idjenis_hewan' => 'required|exists:jenis_hewan,idjenis_hewan',
+        ]);
+    }
+
+    protected function createRas(array $data)
+    {
+        try {
+            return AnimalBreed::create($data);
+        } catch (\Exception $e) {
+            throw new \Exception('Gagal menyimpan data ras hewan: ' . $e->getMessage());
+        }
     }
 }

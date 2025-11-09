@@ -31,16 +31,9 @@ class PetController extends Controller
    
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'idpemilik' => 'required|exists:pemilik,idpemilik',
-            'idras_hewan' => 'required|exists:ras_hewan,idras_hewan',
-            'nama' => 'required|string|max:100',
-            'jenis_kelamin' => 'required|in:L,P',
-            'tanggal_lahir' => 'nullable|date',
-            'warna_tanda' => 'nullable|string|max:45',
-        ]);
+        $validated = $this->validatePet($request);
 
-        Pet::create($validated);
+        $this->createPet($validated);
 
         return redirect()->route('pet.index')
             ->with('success', 'Data hewan berhasil ditambahkan.');
@@ -61,14 +54,7 @@ class PetController extends Controller
     
     public function update(Request $request, Pet $pet)
     {
-        $validated = $request->validate([
-            'idpemilik' => 'required|exists:pemilik,idpemilik',
-            'idras_hewan' => 'required|exists:ras_hewan,idras_hewan',
-            'nama' => 'required|string|max:100',
-            'jenis_kelamin' => 'required|in:L,P',
-            'tanggal_lahir' => 'nullable|date',
-            'warna_tanda' => 'nullable|string|max:45',
-        ]);
+        $validated = $this->validatePet($request, $pet->idpet);
 
         $pet->update($validated);
 
@@ -93,5 +79,28 @@ class PetController extends Controller
             ->get();
         
         return response()->json($breeds);
+    }
+
+    // Validation helper for Pet
+    protected function validatePet(Request $request, $id = null)
+    {
+        return $request->validate([
+            'idpemilik' => 'required|exists:pemilik,idpemilik',
+            'idras_hewan' => 'required|exists:ras_hewan,idras_hewan',
+            'nama' => 'required|string|max:100',
+            'jenis_kelamin' => 'required|in:L,P',
+            'tanggal_lahir' => 'nullable|date',
+            'warna_tanda' => 'nullable|string|max:45',
+        ]);
+    }
+
+    // Create helper for Pet
+    protected function createPet(array $data)
+    {
+        try {
+            return Pet::create($data);
+        } catch (\Exception $e) {
+            throw new \Exception('Gagal menyimpan data hewan: ' . $e->getMessage());
+        }
     }
 }

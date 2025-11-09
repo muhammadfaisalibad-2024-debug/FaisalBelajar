@@ -59,18 +59,10 @@ class TemuDokterController extends Controller
             abort(403, 'Unauthorized - Anda tidak memiliki akses sebagai Resepsionis.');
         }
 
-        $validated = $request->validate([
-            'idpet' => 'required|exists:pet,idpet',
-            'idrole_user' => 'required|exists:role_user,idrole_user',
-            'status' => 'required|in:0,1,2,3', // 0=pending, 1=confirmed, 2=completed, 3=cancelled
-        ]);
+        $validated = $this->validateTemuDokter($request);
 
-        // Get no_urut terakhir untuk hari ini
-        $lastNoUrut = TemuDokter::whereDate('waktu_daftar', today())->max('no_urut') ?? 0;
-        $validated['no_urut'] = $lastNoUrut + 1;
-        $validated['waktu_daftar'] = now();
-
-        TemuDokter::create($validated);
+        // use helper to create temu dokter (handles no_urut and waktu_daftar)
+        $this->createTemuDokter($validated);
 
         return redirect()->route('resepsionis.temu-dokter.index')
             ->with('success', 'Janji temu berhasil ditambahkan.');
@@ -104,11 +96,7 @@ class TemuDokterController extends Controller
             abort(403, 'Unauthorized - Anda tidak memiliki akses sebagai Resepsionis.');
         }
 
-        $validated = $request->validate([
-            'idpet' => 'required|exists:pet,idpet',
-            'idrole_user' => 'required|exists:role_user,idrole_user',
-            'status' => 'required|in:0,1,2,3',
-        ]);
+        $validated = $this->validateTemuDokter($request, $id);
 
         $temuDokter = TemuDokter::findOrFail($id);
         $temuDokter->update($validated);
@@ -131,5 +119,30 @@ class TemuDokterController extends Controller
 
         return redirect()->route('resepsionis.temu-dokter.index')
             ->with('success', 'Janji temu berhasil dihapus.');
+    }
+
+    // Validation helper for Temu Dokter
+    protected function validateTemuDokter(Request $request, $id = null)
+    {
+        return $request->validate([
+            'idpet' => 'required|exists:pet,idpet',
+            'idrole_user' => 'required|exists:role_user,idrole_user',
+            'status' => 'required|in:0,1,2,3',
+        ]);
+    }
+
+    // Create helper for Temu Dokter that calculates no_urut and waktu_daftar
+    protected function createTemuDokter(array $data)
+    {
+        try {
+            // Get no_urut terakhir untuk hari ini
+            $lastNoUrut = TemuDokter::whereDate('waktu_daftar', today())->max('no_urut') ?? 0;
+            $data['no_urut'] = $lastNoUrut + 1;
+            $data['waktu_daftar'] = now();
+
+            return TemuDokter::create($data);
+        } catch (\Exception $e) {
+            throw new \Exception('Gagal menyimpan janji temu: ' . $e->getMessage());
+        }
     }
 }

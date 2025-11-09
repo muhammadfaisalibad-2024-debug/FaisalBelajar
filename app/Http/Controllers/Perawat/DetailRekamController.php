@@ -52,13 +52,9 @@ class DetailRekamController extends Controller
             abort(403, 'Unauthorized - Anda tidak memiliki akses sebagai Perawat.');
         }
 
-        $validated = $request->validate([
-            'idrekam_medis' => 'required|exists:rekam_medis,idrekam_medis',
-            'idkode_tindakan_terapi' => 'required|exists:kode_tindakan_terapi,idkode_tindakan_terapi',
-            'detail' => 'nullable|string',
-        ]);
+        $validated = $this->validateDetailRekam($request);
 
-        DetailRekamMedis::create($validated);
+        $this->createDetailRekam($validated);
 
         return redirect()->route('perawat.detail-rekam.index')
             ->with('success', 'Detail rekam medis berhasil ditambahkan.');
@@ -89,11 +85,7 @@ class DetailRekamController extends Controller
             abort(403, 'Unauthorized - Anda tidak memiliki akses sebagai Perawat.');
         }
 
-        $validated = $request->validate([
-            'idrekam_medis' => 'required|exists:rekam_medis,idrekam_medis',
-            'idkode_tindakan_terapi' => 'required|exists:kode_tindakan_terapi,idkode_tindakan_terapi',
-            'detail' => 'nullable|string',
-        ]);
+        $validated = $this->validateDetailRekam($request, $id);
 
         $detailRekam = DetailRekamMedis::findOrFail($id);
         $detailRekam->update($validated);
@@ -116,5 +108,24 @@ class DetailRekamController extends Controller
 
         return redirect()->route('perawat.detail-rekam.index')
             ->with('success', 'Detail rekam medis berhasil dihapus.');
+    }
+
+    // Validation helper for Detail Rekam Medis
+    protected function validateDetailRekam(Request $request, $id = null)
+    {
+        return $request->validate([
+            'idrekam_medis' => 'required|exists:rekam_medis,idrekam_medis',
+            'idkode_tindakan_terapi' => 'required|exists:kode_tindakan_terapi,idkode_tindakan_terapi',
+            'detail' => 'nullable|string',
+        ]);
+    }
+
+    protected function createDetailRekam(array $data)
+    {
+        try {
+            return DetailRekamMedis::create($data);
+        } catch (\Exception $e) {
+            throw new \Exception('Gagal menyimpan detail rekam medis: ' . $e->getMessage());
+        }
     }
 }

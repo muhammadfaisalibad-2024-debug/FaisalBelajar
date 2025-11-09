@@ -20,11 +20,9 @@ class AnimalTypeController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'nama_jenis_hewan' => 'required|string|max:100|unique:jenis_hewan,nama_jenis_hewan',
-        ]);
+        $validated = $this->validateJenisHewan($request);
 
-        AnimalType::create($validated);
+        $this->createJenisHewan($validated);
 
         return redirect()->route('jenis-hewan.index')
             ->with('success', 'Jenis hewan berhasil ditambahkan.');
@@ -37,9 +35,7 @@ class AnimalTypeController extends Controller
 
     public function update(Request $request, AnimalType $jenisHewan)
     {
-        $validated = $request->validate([
-            'nama_jenis_hewan' => 'required|string|max:100|unique:jenis_hewan,nama_jenis_hewan,' . $jenisHewan->idjenis_hewan . ',idjenis_hewan',
-        ]);
+        $validated = $this->validateJenisHewan($request, $jenisHewan->idjenis_hewan);
 
         $jenisHewan->update($validated);
 
@@ -54,4 +50,38 @@ class AnimalTypeController extends Controller
         return redirect()->route('jenis-hewan.index')
             ->with('success', 'Jenis hewan berhasil dihapus.');
     }
+
+    // Helper untuk validasi input jenis hewan
+    protected function validateJenisHewan(Request $request, $id = null)
+    {
+        $uniqueRule = $id ? 'unique:jenis_hewan,nama_jenis_hewan,' . $id . ',idjenis_hewan' : 'unique:jenis_hewan,nama_jenis_hewan';
+
+        return $request->validate([
+            'nama_jenis_hewan' => ['required', 'string', 'max:100', $uniqueRule],
+        ], [
+            'nama_jenis_hewan.required' => 'Nama jenis hewan wajib diisi.',
+            'nama_jenis_hewan.string' => 'Nama jenis hewan harus berupa teks.',
+            'nama_jenis_hewan.max' => 'Nama jenis hewan maksimal 100 karakter.',
+            'nama_jenis_hewan.unique' => 'Nama jenis hewan sudah ada.',
+        ]);
+    }
+
+    // Helper untuk menyimpan data jenis hewan
+    protected function createJenisHewan(array $data)
+    {
+        try {
+            return AnimalType::create([
+                'nama_jenis_hewan' => $this->formatNamaJenisHewan($data['nama_jenis_hewan']),
+            ]);
+        } catch (\Exception $e) {
+            throw new \Exception('Gagal menyimpan data jenis hewan: ' . $e->getMessage());
+        }
+    }
+
+    // Format nama menjadi Title Case
+    protected function formatNamaJenisHewan($nama)
+    {
+        return trim(ucwords(strtolower($nama)));
+    }
+
 }
