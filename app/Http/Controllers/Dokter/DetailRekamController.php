@@ -62,7 +62,6 @@ class DetailRekamController extends Controller
             abort(403);
         }
 
-        // Get dokter's idrole_user
         $roleUser = DB::table('role_user')
             ->where('iduser', $user->iduser)
             ->where('idrole', 2)
@@ -73,7 +72,6 @@ class DetailRekamController extends Controller
             abort(403, 'Anda tidak terdaftar sebagai dokter aktif.');
         }
 
-        // Get rekam medis milik dokter ini
         $rekamMedis = DB::table('rekam_medis as r')
             ->join('temu_dokter as t', 'r.idreservasi_dokter', '=', 't.idreservasi_dokter')
             ->join('pet as p', 't.idpet', '=', 'p.idpet')
