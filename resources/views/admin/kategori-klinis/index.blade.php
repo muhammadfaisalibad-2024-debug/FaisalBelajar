@@ -4,7 +4,7 @@
 <div class="container-fluid">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="h3 mb-0 text-gray-800">Daftar Kategori Klinis</h1>
-        <a href="{{ route('kategori-klinis.create') }}" class="btn btn-primary">
+        <a href="{{ route('admin.kategori-klinis.create') }}" class="btn btn-primary">
             <i class="fas fa-plus"></i> Tambah Kategori Klinis
         </a>
     </div>
@@ -34,10 +34,10 @@
                                 <td>{{ $category->nama_kategori_klinis }}</td>
                                 <td>
                                     <div class="btn-group" role="group">
-                                        <a href="{{ route('kategori-klinis.edit', $category->idkategori_klinis) }}" class="btn btn-sm btn-warning">
+                                        <a href="{{ route('admin.kategori-klinis.edit', $category->idkategori_klinis) }}" class="btn btn-sm btn-warning">
                                             <i class="fas fa-edit"></i> Edit
                                         </a>
-                                        <form action="{{ route('kategori-klinis.destroy', $category->idkategori_klinis) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                                        <form action="{{ route('admin.kategori-klinis.destroy', $category->idkategori_klinis) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-danger">
@@ -63,3 +63,4 @@
     </div>
 </div>
 @endsection
+

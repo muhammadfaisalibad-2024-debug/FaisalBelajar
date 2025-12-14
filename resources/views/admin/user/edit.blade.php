@@ -8,7 +8,7 @@
 
     <div class="card shadow mb-4">
         <div class="card-body">
-            <form action="{{ route('user.update', $user->iduser) }}" method="POST">
+            <form action="{{ route('admin.users.update', $user->iduser) }}" method="POST">
                 @csrf
                 @method('PUT')
 
@@ -70,7 +70,7 @@
                 </div>
 
                 <div class="d-flex justify-content-between">
-                    <a href="{{ route('user.index') }}" class="btn btn-secondary">
+                    <a href="{{ route('admin.users.index') }}" class="btn btn-secondary">
                         <i class="fas fa-arrow-left"></i> Kembali
                     </a>
                     <button type="submit" class="btn btn-primary">
@@ -82,3 +82,5 @@
     </div>
 </div>
 @endsection
+
+

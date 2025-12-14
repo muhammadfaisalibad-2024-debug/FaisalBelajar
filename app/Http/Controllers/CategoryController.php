@@ -29,7 +29,7 @@ class CategoryController extends Controller
 
         Category::create($validated);
 
-        return redirect()->route('kategori.index')
+        return redirect()->route('admin.kategori.index')
                          ->with('success', 'Kategori berhasil ditambahkan.');
     }
 
@@ -53,7 +53,7 @@ class CategoryController extends Controller
 
         $kategori->update($validated);
 
-        return redirect()->route('kategori.index')
+        return redirect()->route('admin.kategori.index')
                          ->with('success', 'Kategori berhasil diperbarui.');
     }
 
@@ -62,7 +62,8 @@ class CategoryController extends Controller
     {
         $kategori->delete();
 
-        return redirect()->route('kategori.index')
+        return redirect()->route('admin.kategori.index')
                          ->with('success', 'Kategori berhasil dihapus.');
     }
 }
+

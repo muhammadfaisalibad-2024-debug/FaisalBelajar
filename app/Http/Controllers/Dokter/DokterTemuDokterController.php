@@ -22,10 +22,9 @@ class DokterTemuDokterController extends Controller
             abort(403, 'Unauthorized - Anda tidak memiliki akses sebagai Dokter.');
         }
 
-        // Tampilkan hanya janji temu untuk dokter yang login
-        // Cari role_user untuk dokter ini
+       
         $roleUser = \App\Models\RoleUser::where('iduser', $user->iduser)
-            ->where('role.idrole', 9)
+            ->where('role.idrole', 2)
             ->where('status', 1)
             ->first();
             

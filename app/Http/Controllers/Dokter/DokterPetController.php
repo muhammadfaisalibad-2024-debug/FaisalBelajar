@@ -16,7 +16,7 @@ class DokterPetController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $hasDokterRole = $user->roles()->wherePivot('status', '1')->where('role.idrole', 9)->exists();
+        $hasDokterRole = $user->roles()->wherePivot('status', '1')->where('role.idrole', 2)->exists();
         
         if (!$hasDokterRole) {
             abort(403, 'Unauthorized - Anda tidak memiliki akses sebagai Dokter.');
@@ -29,7 +29,7 @@ class DokterPetController extends Controller
     public function show($id)
     {
         $user = auth()->user();
-        $hasDokterRole = $user->roles()->wherePivot('status', '1')->where('role.idrole', 9)->exists();
+        $hasDokterRole = $user->roles()->wherePivot('status', '1')->where('role.idrole', 2)->exists();
         
         if (!$hasDokterRole) {
             abort(403, 'Unauthorized - Anda tidak memiliki akses sebagai Dokter.');

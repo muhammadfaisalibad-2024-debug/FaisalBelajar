@@ -76,40 +76,53 @@
 
     <!-- Menu Utama Perawat -->
     <div class="row g-4 mb-4">
-        <div class="col-md-4">
+        <div class="col-md-3">
+            <div class="card h-100 border-0 shadow-sm hover-card">
+                <div class="card-body text-center p-4">
+                    <i class="fas fa-paw fa-4x text-info mb-3"></i>
+                    <h5 class="card-title">Data Pasien</h5>
+                    <p class="card-text text-muted">Lihat data hewan peliharaan</p>
+                    <a href="{{ route('perawat.pasien') }}" class="btn btn-info text-white">
+                        <i class="fas fa-eye"></i> Lihat
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
             <div class="card h-100 border-0 shadow-sm hover-card">
                 <div class="card-body text-center p-4">
                     <i class="fas fa-file-medical fa-4x text-primary mb-3"></i>
                     <h5 class="card-title">Rekam Medis</h5>
-                    <p class="card-text text-muted">Kelola rekam medis hewan peliharaan</p>
+                    <p class="card-text text-muted">Kelola rekam medis hewan</p>
                     <a href="{{ route('perawat.rekam-medis.index') }}" class="btn btn-primary">
-                        <i class="fas fa-arrow-right"></i> Buka
+                        <i class="fas fa-folder-open"></i> Kelola
                     </a>
                 </div>
             </div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="card h-100 border-0 shadow-sm hover-card">
                 <div class="card-body text-center p-4">
                     <i class="fas fa-clipboard-list fa-4x text-success mb-3"></i>
-                    <h5 class="card-title">Detail Rekam Medis</h5>
-                    <p class="card-text text-muted">Kelola detail pemeriksaan & tindakan</p>
+                    <h5 class="card-title">Detail Rekam</h5>
+                    <p class="card-text text-muted">Lihat detail tindakan</p>
                     <a href="{{ route('perawat.detail-rekam.index') }}" class="btn btn-success">
-                        <i class="fas fa-arrow-right"></i> Buka
+                        <i class="fas fa-eye"></i> Lihat
                     </a>
                 </div>
             </div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="card h-100 border-0 shadow-sm hover-card">
                 <div class="card-body text-center p-4">
-                    <i class="fas fa-paw fa-4x text-info mb-3"></i>
-                    <h5 class="card-title">Data Hewan</h5>
-                    <p class="card-text text-muted">Lihat data hewan peliharaan</p>
-                    <a href="{{ route('pet.index') }}" class="btn btn-info text-white">
-                        <i class="fas fa-arrow-right"></i> Buka
+                    <i class="fas fa-user-nurse fa-4x text-warning mb-3"></i>
+                    <h5 class="card-title">Profil Saya</h5>
+                    <p class="card-text text-muted">Lihat profil perawat</p>
+                    <a href="{{ route('perawat.profil') }}" class="btn btn-warning">
+                        <i class="fas fa-user"></i> Profil
                     </a>
                 </div>
             </div>
@@ -182,3 +195,5 @@
 }
 </style>
 @endsection
+
+

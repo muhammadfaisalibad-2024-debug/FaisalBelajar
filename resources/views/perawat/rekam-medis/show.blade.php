@@ -31,7 +31,7 @@
                         </tr>
                         <tr>
                             <th>Waktu Daftar</th>
-                            <td>{{ $rekamMedis->temuDokter ? date('d F Y H:i', strtotime($rekamMedis->temuDokter->waktu_daftar)) : '-' }}</td>
+                            <td>{{ $rekamMedis->temuDokter ? \Carbon\Carbon::parse($rekamMedis->temuDokter->waktu_daftar)->format('d F Y H:i') : '-' }}</td>
                         </tr>
                         <tr>
                             <th>Nama Pet</th>
@@ -43,7 +43,7 @@
                         </tr>
                         <tr>
                             <th>Dokter Pemeriksa</th>
-                            <td>{{ $rekamMedis->dokter->nama ?? '-' }}</td>
+                            <td>{{ $rekamMedis->dokter->user->nama ?? '-' }}</td>
                         </tr>
                         <tr>
                             <th>Anamnesa</th>
@@ -101,3 +101,5 @@
     </div>
 </div>
 @endsection
+
+

@@ -82,8 +82,8 @@
                     <i class="fas fa-users fa-4x text-primary mb-3"></i>
                     <h5 class="card-title">Data Pemilik</h5>
                     <p class="card-text text-muted">Kelola data pemilik hewan peliharaan</p>
-                    <a href="{{ route('pemilik.index') }}" class="btn btn-primary">
-                        <i class="fas fa-arrow-right"></i> Buka
+                    <a href="{{ route('resepsionis.pemilik.index') }}" class="btn btn-primary">
+                        <i class="fas fa-arrow-right"></i> Kelola
                     </a>
                 </div>
             </div>
@@ -95,8 +95,8 @@
                     <i class="fas fa-paw fa-4x text-success mb-3"></i>
                     <h5 class="card-title">Data Hewan</h5>
                     <p class="card-text text-muted">Kelola data hewan peliharaan</p>
-                    <a href="{{ route('pet.index') }}" class="btn btn-success">
-                        <i class="fas fa-arrow-right"></i> Buka
+                    <a href="{{ route('resepsionis.pet.index') }}" class="btn btn-success">
+                        <i class="fas fa-arrow-right"></i> Kelola
                     </a>
                 </div>
             </div>
@@ -121,7 +121,7 @@
                     <i class="fas fa-user-plus fa-4x text-warning mb-3"></i>
                     <h5 class="card-title">Tambah Pemilik</h5>
                     <p class="card-text text-muted">Daftar pemilik baru</p>
-                    <a href="{{ route('pemilik.create') }}" class="btn btn-warning">
+                    <a href="{{ route('resepsionis.pemilik.create') }}" class="btn btn-warning">
                         <i class="fas fa-plus"></i> Tambah
                     </a>
                 </div>
@@ -138,10 +138,10 @@
                 </div>
                 <div class="card-body">
                     <div class="d-grid gap-2">
-                        <a href="{{ route('pemilik.create') }}" class="btn btn-outline-primary text-start">
+                        <a href="{{ route('resepsionis.pemilik.create') }}" class="btn btn-outline-primary text-start">
                             <i class="fas fa-user-plus"></i> Tambah Pemilik Baru
                         </a>
-                        <a href="{{ route('pet.create') }}" class="btn btn-outline-success text-start">
+                        <a href="{{ route('resepsionis.pet.create') }}" class="btn btn-outline-success text-start">
                             <i class="fas fa-paw"></i> Tambah Hewan Baru
                         </a>
                         <a href="{{ route('resepsionis.temu-dokter.create') }}" class="btn btn-outline-info text-start">
@@ -179,7 +179,7 @@
                                         <small class="text-muted">
                                             {{ $apt->pet->owner->nama ?? '-' }} | 
                                             Dr. {{ $apt->roleUser->user->nama ?? '-' }} |
-                                            {{ date('H:i', strtotime($apt->waktu_daftar)) }}
+                                            {{ \Carbon\Carbon::parse($apt->waktu_daftar)->format('H:i') }}
                                         </small>
                                     </div>
                                     <span class="badge bg-{{ $apt->status == '1' ? 'info' : ($apt->status == '0' ? 'warning' : ($apt->status == '2' ? 'success' : 'danger')) }}">
@@ -229,7 +229,7 @@
                                         <td>{{ $owner->no_wa ?? '-' }}</td>
                                         <td>{{ Str::limit($owner->alamat, 30) ?? '-' }}</td>
                                         <td>
-                                            <a href="{{ route('pemilik.edit', $owner->idpemilik) }}" 
+                                            <a href="{{ route('resepsionis.pemilik.edit', $owner->idpemilik) }}" 
                                                class="btn btn-sm btn-warning">
                                                 <i class="fas fa-edit"></i>
                                             </a>
@@ -258,3 +258,5 @@
 }
 </style>
 @endsection
+
+

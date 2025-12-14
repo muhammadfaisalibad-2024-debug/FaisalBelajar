@@ -72,7 +72,7 @@
                 $isAdmin = $user->roles()->wherePivot('status', '1')->where('role.idrole', 1)->exists();
                 $isPerawat = $user->roles()->wherePivot('status', '1')->where('role.idrole', 3)->exists();
                 $isResepsionis = $user->roles()->wherePivot('status', '1')->where('role.idrole', 4)->exists();
-                $isDokter = $user->roles()->wherePivot('status', '1')->where('role.idrole', 9)->exists();
+                $isDokter = $user->roles()->wherePivot('status', '1')->where('role.idrole', 2)->exists();
                 
                 $dashboardRoute = route('dashboard'); // default
                 if ($isPerawat) {
@@ -105,35 +105,59 @@
                             <i class="bi bi-database"></i> Data Master
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{{ route('user.index') }}">
+                            <li><a class="dropdown-item" href="{{ route('admin.users.index') }}">
                                 <i class="bi bi-people"></i> Users
                             </a></li>
-                            <li><a class="dropdown-item" href="{{ route('role.index') }}">
+                            <li><a class="dropdown-item" href="{{ route('admin.role.index') }}">
                                 <i class="bi bi-shield"></i> Role
                             </a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{{ route('pemilik.index') }}">
+                            <li><a class="dropdown-item" href="{{ route('admin.dokter.index') }}">
+                                <i class="bi bi-person-badge"></i> Dokter
+                            </a></li>
+                            <li><a class="dropdown-item" href="{{ route('admin.perawat.index') }}">
+                                <i class="bi bi-hospital"></i> Perawat
+                            </a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{{ route('admin.pemilik.index') }}">
                                 <i class="bi bi-person"></i> Pemilik
                             </a></li>
-                            <li><a class="dropdown-item" href="{{ route('pet.index') }}">
+                            <li><a class="dropdown-item" href="{{ route('admin.pet.index') }}">
                                 <i class="bi bi-heart"></i> Pet / Hewan
                             </a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{{ route('jenis-hewan.index') }}">
+                            <li><a class="dropdown-item" href="{{ route('admin.jenis-hewan.index') }}">
                                 <i class="bi bi-collection"></i> Jenis Hewan
                             </a></li>
-                            <li><a class="dropdown-item" href="{{ route('ras-hewan.index') }}">
+                            <li><a class="dropdown-item" href="{{ route('admin.ras-hewan.index') }}">
                                 <i class="bi bi-grid"></i> Ras Hewan
                             </a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{{ route('kategori.index') }}">
+                            <li><a class="dropdown-item" href="{{ route('admin.kategori.index') }}">
                                 <i class="bi bi-tags"></i> Kategori
                             </a></li>
-                            <li><a class="dropdown-item" href="{{ route('kategori-klinis.index') }}">
+                            <li><a class="dropdown-item" href="{{ route('admin.kategori-klinis.index') }}">
                                 <i class="bi bi-bookmark"></i> Kategori Klinis
                             </a></li>
-                            <li><a class="dropdown-item" href="{{ route('kode-tindakan-terapi.index') }}">
+                            <li><a class="dropdown-item" href="{{ route('admin.kode-tindakan-terapi.index') }}">
                                 <i class="bi bi-file-medical"></i> Kode Tindakan Terapi
+                            </a></li>
+                        </ul>
+                    </li>
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-journal-medical"></i> Transaksi
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{{ route('admin.temu-dokter.index') }}">
+                                <i class="bi bi-calendar-check"></i> Temu Dokter
+                            </a></li>
+                            <li><a class="dropdown-item" href="{{ route('admin.rekam-medis.index') }}">
+                                <i class="bi bi-file-medical-fill"></i> Rekam Medis
+                            </a></li>
+                            <li><a class="dropdown-item" href="{{ route('admin.detail-rekam.index') }}">
+                                <i class="bi bi-clipboard2-pulse"></i> Detail Rekam Medis
                             </a></li>
                         </ul>
                     </li>

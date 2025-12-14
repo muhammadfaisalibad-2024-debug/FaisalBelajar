@@ -38,12 +38,12 @@
                         <tr>
                             <td>{{ $rekamMedis->firstItem() + $index }}</td>
                             <td>{{ $rm->created_at ? date('d/m/Y', strtotime($rm->created_at)) : '-' }}</td>
-                            <td>{{ $rm->temuDokter->no_urut ?? '-' }}</td>
-                            <td>{{ $rm->temuDokter->pet->nama ?? '-' }}</td>
-                            <td>{{ $rm->temuDokter->pet->owner->nama ?? '-' }}</td>
+                            <td>{{ $rm->no_urut ?? '-' }}</td>
+                            <td>{{ $rm->pet_name ?? '-' }}</td>
+                            <td>{{ $rm->owner_name ?? '-' }}</td>
                             <td>{{ Str::limit($rm->anamnesa, 50) ?? '-' }}</td>
                             <td>{{ Str::limit($rm->diagnosa, 50) ?? '-' }}</td>
-                            <td>{{ $rm->dokter->nama ?? '-' }}</td>
+                            <td>{{ $rm->dokter_name ?? '-' }}</td>
                             <td>
                                 <div class="btn-group btn-group-sm" role="group">
                                     <a href="{{ route('perawat.rekam-medis.show', $rm->idrekam_medis) }}" 
@@ -85,3 +85,5 @@
     </div>
 </div>
 @endsection
+
+

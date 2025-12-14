@@ -29,7 +29,7 @@ class RoleController extends Controller
 
         Role::create($validated);
 
-        return redirect()->route('role.index')
+        return redirect()->route('admin.role.index')
                          ->with('success', 'Role berhasil ditambahkan.');
     }
 
@@ -55,14 +55,15 @@ class RoleController extends Controller
 
         $role->update($validated);
 
-        return redirect()->route('role.index')
+        return redirect()->route('admin.role.index')
                          ->with('success', 'Role berhasil diperbarui.');
     }
     public function destroy(Role $role)
     {
         $role->delete();
 
-        return redirect()->route('role.index')
+        return redirect()->route('admin.role.index')
                          ->with('success', 'Role berhasil dihapus.');
     }
 }
+

@@ -8,7 +8,7 @@
 
     <div class="card shadow mb-4">
         <div class="card-body">
-            <form action="{{ route('jenis-hewan.store') }}" method="POST">
+            <form action="{{ route('admin.jenis-hewan.store') }}" method="POST">
                 @csrf
 
                 <div class="mb-3">
@@ -21,7 +21,7 @@
                 </div>
 
                 <div class="d-flex justify-content-between">
-                    <a href="{{ route('jenis-hewan.index') }}" class="btn btn-secondary">
+                    <a href="{{ route('admin.jenis-hewan.index') }}" class="btn btn-secondary">
                         <i class="fas fa-arrow-left"></i> Kembali
                     </a>
                     <button type="submit" class="btn btn-primary">
@@ -33,3 +33,4 @@
     </div>
 </div>
 @endsection
+

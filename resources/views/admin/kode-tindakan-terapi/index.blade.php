@@ -4,7 +4,7 @@
 <div class="container-fluid">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="h3 mb-0 text-gray-800">Daftar Kode Tindakan Terapi</h1>
-        <a href="{{ route('kode-tindakan-terapi.create') }}" class="btn btn-primary">
+        <a href="{{ route('admin.kode-tindakan-terapi.create') }}" class="btn btn-primary">
             <i class="fas fa-plus"></i> Tambah Kode Tindakan
         </a>
     </div>
@@ -40,10 +40,10 @@
                                 <td>{{ $code->clinicalCategory->nama_kategori_klinis ?? '-' }}</td>
                                 <td>
                                     <div class="btn-group" role="group">
-                                        <a href="{{ route('kode-tindakan-terapi.edit', $code->idkode_tindakan_terapi) }}" class="btn btn-sm btn-warning">
+                                        <a href="{{ route('admin.kode-tindakan-terapi.edit', $code->idkode_tindakan_terapi) }}" class="btn btn-sm btn-warning">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <form action="{{ route('kode-tindakan-terapi.destroy', $code->idkode_tindakan_terapi) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                                        <form action="{{ route('admin.kode-tindakan-terapi.destroy', $code->idkode_tindakan_terapi) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-danger">
@@ -69,3 +69,4 @@
     </div>
 </div>
 @endsection
+

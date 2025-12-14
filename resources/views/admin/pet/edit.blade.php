@@ -8,7 +8,7 @@
 
     <div class="card">
         <div class="card-body">
-            <form action="{{ route('pet.update', $pet->idpet) }}" method="POST">
+            <form action="{{ route('admin.pet.update', $pet->idpet) }}" method="POST">
                 @csrf
                 @method('PUT')
 
@@ -120,7 +120,7 @@
                                    class="form-control @error('tanggal_lahir') is-invalid @enderror" 
                                    id="tanggal_lahir" 
                                    name="tanggal_lahir" 
-                                   value="{{ old('tanggal_lahir') ?? ($pet->tanggal_lahir ? $pet->tanggal_lahir->format('Y-m-d') : '') }}">
+                                   value="{{ old('tanggal_lahir', $pet->tanggal_lahir) }}">
                             @error('tanggal_lahir')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -145,7 +145,7 @@
                     <button type="submit" class="btn btn-primary">
                         <i class="fas fa-save"></i> Update
                     </button>
-                    <a href="{{ route('pet.index') }}" class="btn btn-secondary">
+                    <a href="{{ route('admin.pet.index') }}" class="btn btn-secondary">
                         <i class="fas fa-arrow-left"></i> Kembali
                     </a>
                 </div>
@@ -180,3 +180,4 @@ document.getElementById('idjenis_hewan').addEventListener('change', function() {
 });
 </script>
 @endsection
+

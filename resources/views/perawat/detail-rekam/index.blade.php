@@ -2,11 +2,9 @@
 
 @section('content')
 <div class="container-fluid">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2><i class="fas fa-clipboard-list"></i> Detail Rekam Medis</h2>
-        <a href="{{ route('perawat.detail-rekam.create') }}" class="btn btn-primary">
-            <i class="fas fa-plus"></i> Tambah Detail
-        </a>
+    <div class="mb-4">
+        <h2><i class="fas fa-clipboard-list text-info"></i> Detail Rekam Medis (View Only)</h2>
+        <p class="text-muted">Lihat detail tindakan terapi pada rekam medis</p>
     </div>
 
     @if(session('success'))
@@ -29,7 +27,6 @@
                             <th>Kode Tindakan</th>
                             <th>Nama Tindakan</th>
                             <th>Detail</th>
-                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -39,30 +36,13 @@
                             <td>{{ date('d/m/Y H:i', strtotime($detail->rekamMedis->created_at)) }}</td>
                             <td>{{ $detail->rekamMedis->temuDokter->no_urut ?? '-' }}</td>
                             <td>{{ $detail->rekamMedis->temuDokter->pet->nama ?? '-' }}</td>
-                            <td>{{ $detail->kodeTindakan->kode ?? '-' }}</td>
-                            <td>{{ $detail->kodeTindakan->nama_tindakan ?? '-' }}</td>
+                            <td><span class="badge bg-info">{{ $detail->kodeTindakan->kode ?? '-' }}</span></td>
+                            <td>{{ $detail->kodeTindakan->deskripsi_tindakan_terapi ?? '-' }}</td>
                             <td>{{ Str::limit($detail->detail, 50) ?? '-' }}</td>
-                            <td>
-                                <div class="btn-group btn-group-sm" role="group">
-                                    <a href="{{ route('perawat.detail-rekam.edit', $detail->iddetail_rekam_medis) }}" 
-                                       class="btn btn-warning" title="Edit">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    <form action="{{ route('perawat.detail-rekam.destroy', $detail->iddetail_rekam_medis) }}" 
-                                          method="POST" class="d-inline"
-                                          onsubmit="return confirm('Yakin ingin menghapus detail ini?')">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm" title="Hapus">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </form>
-                                </div>
-                            </td>
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="8" class="text-center py-4">
+                            <td colspan="7" class="text-center py-4">
                                 <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
                                 <p class="text-muted">Belum ada detail rekam medis</p>
                             </td>
@@ -79,3 +59,5 @@
     </div>
 </div>
 @endsection
+
+

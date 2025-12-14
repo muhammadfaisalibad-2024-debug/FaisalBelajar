@@ -25,7 +25,7 @@ class AnimalBreedController extends Controller
 
         $this->createRas($validated);
 
-        return redirect()->route('ras-hewan.index')
+        return redirect()->route('admin.ras-hewan.index')
                          ->with('success', 'Ras hewan berhasil ditambahkan.');
     }
 
@@ -48,7 +48,7 @@ class AnimalBreedController extends Controller
 
         $rasHewan->update($validated);
 
-        return redirect()->route('ras-hewan.index')
+        return redirect()->route('admin.ras-hewan.index')
                          ->with('success', 'Ras hewan berhasil diperbarui.');
     }
 
@@ -57,7 +57,7 @@ class AnimalBreedController extends Controller
     {
         $rasHewan->delete();
 
-        return redirect()->route('ras-hewan.index')
+        return redirect()->route('admin.ras-hewan.index')
                          ->with('success', 'Ras hewan berhasil dihapus.');
     }
 
@@ -80,3 +80,4 @@ class AnimalBreedController extends Controller
         }
     }
 }
+

@@ -26,8 +26,8 @@ class UserController extends Controller
         $validated = $request->validate([
             'nama' => 'required|string|max:500',
             'email' => 'required|email|max:200|unique:user,email',
-            'password' => 'required|string|min:8|confirmed',
-            'roles' => 'required|array',
+            'password' => 'required|string|min:6|confirmed',
+            'roles' => 'nullable|array',
             'roles.*' => 'exists:role,idrole',
         ]);
 
@@ -37,12 +37,14 @@ class UserController extends Controller
             'password' => Hash::make($validated['password']),
         ]);
 
-    
-        foreach ($validated['roles'] as $roleId) {
-            $user->roles()->attach($roleId, ['status' => 1]);
+        // Attach roles only if provided
+        if (!empty($validated['roles'])) {
+            foreach ($validated['roles'] as $roleId) {
+                $user->roles()->attach($roleId, ['status' => 1]);
+            }
         }
 
-        return redirect()->route('user.index')
+        return redirect()->route('admin.users.index')
             ->with('success', 'User berhasil ditambahkan.');
     }
 
@@ -57,8 +59,8 @@ class UserController extends Controller
         $validated = $request->validate([
             'nama' => 'required|string|max:500',
             'email' => 'required|email|max:200|unique:user,email,' . $user->iduser . ',iduser',
-            'password' => 'nullable|string|min:8|confirmed',
-            'roles' => 'required|array',
+            'password' => 'nullable|string|min:6|confirmed',
+            'roles' => 'nullable|array',
             'roles.*' => 'exists:role,idrole',
         ]);
 
@@ -71,14 +73,19 @@ class UserController extends Controller
             $user->update(['password' => Hash::make($validated['password'])]);
         }
 
-    
-        $syncData = [];
-        foreach ($validated['roles'] as $roleId) {
-            $syncData[$roleId] = ['status' => 1];
+        // Sync roles only if provided
+        if (!empty($validated['roles'])) {
+            $syncData = [];
+            foreach ($validated['roles'] as $roleId) {
+                $syncData[$roleId] = ['status' => 1];
+            }
+            $user->roles()->sync($syncData);
+        } else {
+            // Remove all roles if none provided
+            $user->roles()->sync([]);
         }
-        $user->roles()->sync($syncData);
 
-        return redirect()->route('user.index')
+        return redirect()->route('admin.users.index')
             ->with('success', 'User berhasil diperbarui.');
     }
 
@@ -86,7 +93,7 @@ class UserController extends Controller
     {
         $user->delete();
 
-        return redirect()->route('user.index')
+        return redirect()->route('admin.users.index')
             ->with('success', 'User berhasil dihapus.');
     }
 }

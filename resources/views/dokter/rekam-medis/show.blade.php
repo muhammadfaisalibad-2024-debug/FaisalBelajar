@@ -23,27 +23,31 @@
                     <table class="table table-borderless">
                         <tr>
                             <th width="200">Tanggal Dibuat</th>
-                            <td>{{ date('d F Y H:i', strtotime($rekamMedis->created_at)) }}</td>
+                            <td>{{ \Carbon\Carbon::parse($rekamMedis->created_at)->format('d F Y H:i') }}</td>
                         </tr>
                         <tr>
                             <th>No. Urut Reservasi</th>
-                            <td><span class="badge bg-secondary">{{ $rekamMedis->temuDokter->no_urut ?? '-' }}</span></td>
+                            <td><span class="badge bg-secondary">{{ $rekamMedis->no_urut ?? '-' }}</span></td>
                         </tr>
                         <tr>
                             <th>Waktu Daftar</th>
-                            <td>{{ $rekamMedis->temuDokter ? date('d F Y H:i', strtotime($rekamMedis->temuDokter->waktu_daftar)) : '-' }}</td>
+                            <td>{{ \Carbon\Carbon::parse($rekamMedis->waktu_daftar)->format('d F Y H:i') }}</td>
                         </tr>
                         <tr>
                             <th>Nama Pet</th>
-                            <td>{{ $rekamMedis->temuDokter->pet->nama ?? '-' }}</td>
+                            <td><strong>{{ $rekamMedis->pet_name ?? '-' }}</strong></td>
+                        </tr>
+                        <tr>
+                            <th>Jenis Kelamin Pet</th>
+                            <td>{{ $rekamMedis->pet_gender ?? '-' }}</td>
                         </tr>
                         <tr>
                             <th>Pemilik</th>
-                            <td>{{ $rekamMedis->temuDokter->pet->owner->nama ?? '-' }}</td>
+                            <td>{{ $rekamMedis->owner_name ?? '-' }}</td>
                         </tr>
                         <tr>
                             <th>Dokter Pemeriksa</th>
-                            <td>{{ $rekamMedis->dokter->nama ?? '-' }}</td>
+                            <td>Dr. {{ $rekamMedis->dokter_name ?? '-' }}</td>
                         </tr>
                         <tr>
                             <th>Anamnesa</th>
@@ -74,13 +78,13 @@
                     <h5 class="mb-0">Detail Tindakan</h5>
                 </div>
                 <div class="card-body">
-                    @if($rekamMedis->details->count() > 0)
+                    @if($details && count($details) > 0)
                         <div class="list-group">
-                            @foreach($rekamMedis->details as $detail)
+                            @foreach($details as $detail)
                             <div class="list-group-item">
                                 <h6 class="mb-1">
-                                    <span class="badge bg-secondary">{{ $detail->kodeTindakan->kode ?? 'N/A' }}</span>
-                                    {{ $detail->kodeTindakan->nama_tindakan ?? 'N/A' }}
+                                    <span class="badge bg-secondary">{{ $detail->kode ?? 'N/A' }}</span>
+                                    {{ $detail->deskripsi_tindakan_terapi ?? 'N/A' }}
                                 </h6>
                                 <p class="mb-0 small text-muted">{{ $detail->detail ?? '-' }}</p>
                             </div>
@@ -95,3 +99,5 @@
     </div>
 </div>
 @endsection
+
+

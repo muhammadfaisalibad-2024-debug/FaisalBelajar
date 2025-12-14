@@ -76,7 +76,20 @@
 
     <!-- Menu Utama Dokter -->
     <div class="row g-4">
-        <div class="col-md-4">
+        <div class="col-md-3">
+            <div class="card h-100 border-0 shadow-sm hover-card">
+                <div class="card-body text-center p-4">
+                    <i class="fas fa-paw fa-4x text-success mb-3"></i>
+                    <h5 class="card-title">Data Pasien</h5>
+                    <p class="card-text text-muted">Lihat data hewan peliharaan</p>
+                    <a href="{{ route('dokter.pasien') }}" class="btn btn-success">
+                        <i class="fas fa-eye"></i> Lihat
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
             <div class="card h-100 border-0 shadow-sm hover-card">
                 <div class="card-body text-center p-4">
                     <i class="fas fa-file-medical fa-4x text-primary mb-3"></i>
@@ -89,27 +102,27 @@
             </div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="card h-100 border-0 shadow-sm hover-card">
                 <div class="card-body text-center p-4">
-                    <i class="fas fa-paw fa-4x text-success mb-3"></i>
-                    <h5 class="card-title">Data Pasien</h5>
-                    <p class="card-text text-muted">Lihat data hewan peliharaan</p>
-                    <a href="{{ route('dokter.pet.index') }}" class="btn btn-success">
-                        <i class="fas fa-eye"></i> Lihat
+                    <i class="fas fa-clipboard-list fa-4x text-info mb-3"></i>
+                    <h5 class="card-title">Detail Rekam</h5>
+                    <p class="card-text text-muted">Kelola detail tindakan</p>
+                    <a href="{{ route('dokter.detail-rekam.index') }}" class="btn btn-info text-white">
+                        <i class="fas fa-folder-open"></i> Kelola
                     </a>
                 </div>
             </div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="card h-100 border-0 shadow-sm hover-card">
                 <div class="card-body text-center p-4">
-                    <i class="fas fa-calendar-alt fa-4x text-info mb-3"></i>
-                    <h5 class="card-title">Jadwal Temu</h5>
-                    <p class="card-text text-muted">Lihat jadwal janji temu</p>
-                    <a href="{{ route('dokter.temu-dokter.index') }}" class="btn btn-info text-white">
-                        <i class="fas fa-eye"></i> Lihat
+                    <i class="fas fa-user-md fa-4x text-warning mb-3"></i>
+                    <h5 class="card-title">Profil Saya</h5>
+                    <p class="card-text text-muted">Lihat profil dokter</p>
+                    <a href="{{ route('dokter.profil') }}" class="btn btn-warning">
+                        <i class="fas fa-user"></i> Profil
                     </a>
                 </div>
             </div>
@@ -141,3 +154,5 @@
 }
 </style>
 @endsection
+
+

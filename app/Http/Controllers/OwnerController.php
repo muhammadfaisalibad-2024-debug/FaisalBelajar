@@ -28,7 +28,7 @@ class OwnerController extends Controller
 
         $this->createOwner($validated);
 
-        return redirect()->route('pemilik.index')
+        return redirect()->route('admin.pemilik.index')
             ->with('success', 'Data pemilik berhasil ditambahkan.');
     }
 
@@ -46,7 +46,7 @@ class OwnerController extends Controller
 
         $pemilik->update($validated);
 
-        return redirect()->route('pemilik.index')
+        return redirect()->route('admin.pemilik.index')
             ->with('success', 'Data pemilik berhasil diperbarui.');
     }
 
@@ -55,7 +55,7 @@ class OwnerController extends Controller
     {
         $pemilik->delete();
 
-        return redirect()->route('pemilik.index')
+        return redirect()->route('admin.pemilik.index')
             ->with('success', 'Data pemilik berhasil dihapus.');
     }
 
@@ -77,3 +77,4 @@ class OwnerController extends Controller
         }
     }
 }
+

@@ -4,7 +4,7 @@
 <div class="container-fluid">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="h3 mb-0 text-gray-800">Daftar User</h1>
-        <a href="{{ route('user.create') }}" class="btn btn-primary">
+        <a href="{{ route('admin.users.create') }}" class="btn btn-primary">
             <i class="fas fa-plus"></i> Tambah User
         </a>
     </div>
@@ -42,10 +42,10 @@
                                 </td>
                                 <td>
                                     <div class="btn-group" role="group">
-                                        <a href="{{ route('user.edit', $user->iduser) }}" class="btn btn-sm btn-warning">
+                                        <a href="{{ route('admin.users.edit', $user->iduser) }}" class="btn btn-sm btn-warning">
                                             <i class="fas fa-edit"></i> Edit
                                         </a>
-                                        <form action="{{ route('user.destroy', $user->iduser) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                                        <form action="{{ route('admin.users.destroy', $user->iduser) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-danger">
@@ -71,3 +71,6 @@
     </div>
 </div>
 @endsection
+
+
+

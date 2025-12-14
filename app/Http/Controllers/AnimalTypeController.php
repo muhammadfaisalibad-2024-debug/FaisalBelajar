@@ -24,7 +24,7 @@ class AnimalTypeController extends Controller
 
         $this->createJenisHewan($validated);
 
-        return redirect()->route('jenis-hewan.index')
+        return redirect()->route('admin.jenis-hewan.index')
             ->with('success', 'Jenis hewan berhasil ditambahkan.');
     }
 
@@ -39,7 +39,7 @@ class AnimalTypeController extends Controller
 
         $jenisHewan->update($validated);
 
-        return redirect()->route('jenis-hewan.index')
+        return redirect()->route('admin.jenis-hewan.index')
             ->with('success', 'Jenis hewan berhasil diperbarui.');
     }
 
@@ -47,7 +47,7 @@ class AnimalTypeController extends Controller
     {
         $jenisHewan->delete();
 
-        return redirect()->route('jenis-hewan.index')
+        return redirect()->route('admin.jenis-hewan.index')
             ->with('success', 'Jenis hewan berhasil dihapus.');
     }
 
@@ -85,3 +85,4 @@ class AnimalTypeController extends Controller
     }
 
 }
+

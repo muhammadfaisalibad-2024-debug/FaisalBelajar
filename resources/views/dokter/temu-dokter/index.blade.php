@@ -26,7 +26,7 @@
                         <tr>
                             <td>{{ $temuDokter->firstItem() + $index }}</td>
                             <td><span class="badge bg-secondary">{{ $temu->no_urut }}</span></td>
-                            <td>{{ date('d/m/Y H:i', strtotime($temu->waktu_daftar)) }}</td>
+                            <td>{{ \Carbon\Carbon::parse($temu->waktu_daftar)->format('d/m/Y H:i') }}</td>
                             <td>{{ $temu->pet->nama ?? '-' }}</td>
                             <td>{{ $temu->pet->owner->nama ?? '-' }}</td>
                             <td>
@@ -66,3 +66,5 @@
     </div>
 </div>
 @endsection
+
+

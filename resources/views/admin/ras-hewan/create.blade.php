@@ -8,7 +8,7 @@
 
     <div class="card shadow mb-4">
         <div class="card-body">
-            <form action="{{ route('ras-hewan.store') }}" method="POST">
+            <form action="{{ route('admin.ras-hewan.store') }}" method="POST">
                 @csrf
 
                 <div class="mb-3">
@@ -37,7 +37,7 @@
                 </div>
 
                 <div class="d-flex justify-content-between">
-                    <a href="{{ route('ras-hewan.index') }}" class="btn btn-secondary">
+                    <a href="{{ route('admin.ras-hewan.index') }}" class="btn btn-secondary">
                         <i class="fas fa-arrow-left"></i> Kembali
                     </a>
                     <button type="submit" class="btn btn-primary">
@@ -49,3 +49,4 @@
     </div>
 </div>
 @endsection
+

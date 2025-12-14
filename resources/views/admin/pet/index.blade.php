@@ -4,7 +4,7 @@
 <div class="container-fluid">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2><i class="fas fa-paw"></i> Data Hewan Peliharaan</h2>
-        <a href="{{ route('pet.create') }}" class="btn btn-primary">
+        <a href="{{ route('admin.pet.create') }}" class="btn btn-primary">
             <i class="fas fa-plus"></i> Tambah Pet
         </a>
     </div>
@@ -52,11 +52,11 @@
                                 <td>{{ $pet->warna_tanda ?? '-' }}</td>
                                 <td>
                                     <div class="btn-group btn-group-sm" role="group">
-                                        <a href="{{ route('pet.edit', $pet->idpet) }}" 
+                                        <a href="{{ route('admin.pet.edit', $pet->idpet) }}" 
                                            class="btn btn-warning" title="Edit">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <form action="{{ route('pet.destroy', $pet->idpet) }}" 
+                                        <form action="{{ route('admin.pet.destroy', $pet->idpet) }}" 
                                               method="POST" 
                                               class="d-inline"
                                               onsubmit="return confirm('Yakin ingin menghapus data ini?')">
@@ -85,3 +85,4 @@
     </div>
 </div>
 @endsection
+

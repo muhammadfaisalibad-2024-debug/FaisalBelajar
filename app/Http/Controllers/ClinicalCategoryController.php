@@ -30,7 +30,7 @@ class ClinicalCategoryController extends Controller
 
         ClinicalCategory::create($validated);
 
-        return redirect()->route('kategori-klinis.index')
+        return redirect()->route('admin.kategori-klinis.index')
                          ->with('success', 'Kategori klinis berhasil ditambahkan.');
     }
 
@@ -55,7 +55,7 @@ class ClinicalCategoryController extends Controller
 
         $kategoriKlinis->update($validated);
 
-        return redirect()->route('kategori-klinis.index')
+        return redirect()->route('admin.kategori-klinis.index')
                          ->with('success', 'Kategori klinis berhasil diperbarui.');
     }
 
@@ -64,7 +64,8 @@ class ClinicalCategoryController extends Controller
     {
         $kategoriKlinis->delete();
 
-        return redirect()->route('kategori-klinis.index')
+        return redirect()->route('admin.kategori-klinis.index')
                          ->with('success', 'Kategori klinis berhasil dihapus.');
     }
 }
+

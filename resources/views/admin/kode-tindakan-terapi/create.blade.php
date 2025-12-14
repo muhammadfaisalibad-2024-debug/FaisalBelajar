@@ -8,7 +8,7 @@
 
     <div class="card shadow mb-4">
         <div class="card-body">
-            <form action="{{ route('kode-tindakan-terapi.store') }}" method="POST">
+            <form action="{{ route('admin.kode-tindakan-terapi.store') }}" method="POST">
                 @csrf
 
                 <div class="row">
@@ -77,7 +77,7 @@
                 </div>
 
                 <div class="d-flex justify-content-between">
-                    <a href="{{ route('kode-tindakan-terapi.index') }}" class="btn btn-secondary">
+                    <a href="{{ route('admin.kode-tindakan-terapi.index') }}" class="btn btn-secondary">
                         <i class="fas fa-arrow-left"></i> Kembali
                     </a>
                     <button type="submit" class="btn btn-primary">
@@ -89,3 +89,4 @@
     </div>
 </div>
 @endsection
+

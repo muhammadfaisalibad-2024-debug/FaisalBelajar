@@ -27,13 +27,13 @@
                         @forelse($rekamMedis as $index => $rm)
                         <tr>
                             <td>{{ $rekamMedis->firstItem() + $index }}</td>
-                            <td>{{ date('d/m/Y H:i', strtotime($rm->created_at)) }}</td>
-                            <td><span class="badge bg-secondary">{{ $rm->temuDokter->no_urut ?? '-' }}</span></td>
-                            <td>{{ $rm->temuDokter->pet->nama ?? '-' }}</td>
-                            <td>{{ $rm->temuDokter->pet->owner->nama ?? '-' }}</td>
+                            <td>{{ \Carbon\Carbon::parse($rm->created_at)->format('d/m/Y H:i') }}</td>
+                            <td><span class="badge bg-secondary">{{ $rm->no_urut ?? '-' }}</span></td>
+                            <td><strong>{{ $rm->pet_name ?? '-' }}</strong></td>
+                            <td>{{ $rm->owner_name ?? '-' }}</td>
                             <td>{{ Str::limit($rm->anamnesa, 40) }}</td>
                             <td>{{ Str::limit($rm->diagnosa, 40) ?? '-' }}</td>
-                            <td>{{ $rm->dokter->nama ?? '-' }}</td>
+                            <td>Dr. {{ $rm->dokter_name ?? '-' }}</td>
                             <td>
                                 <a href="{{ route('dokter.rekam-medis.show', $rm->idrekam_medis) }}" 
                                    class="btn btn-info btn-sm text-white" title="Detail">
@@ -60,3 +60,5 @@
     </div>
 </div>
 @endsection
+
+

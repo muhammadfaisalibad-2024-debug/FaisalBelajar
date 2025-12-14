@@ -21,24 +21,15 @@
 
                 <div class="mb-3">
                     <label for="idreservasi_dokter" class="form-label">Reservasi Dokter <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" value="No. {{ $rekamMedis->temuDokter->no_urut }} - {{ $rekamMedis->temuDokter->pet->nama }} ({{ $rekamMedis->temuDokter->pet->owner->nama }}) - {{ date('d/m/Y H:i', strtotime($rekamMedis->temuDokter->waktu_daftar)) }}" disabled>
+                    <input type="text" class="form-control" value="No. {{ $rekamMedis->temuDokter->no_urut }} - {{ $rekamMedis->temuDokter->pet->nama }} ({{ $rekamMedis->temuDokter->pet->owner->nama }}) - {{ \Carbon\Carbon::parse($rekamMedis->temuDokter->waktu_daftar)->format('d/m/Y H:i') }}" disabled>
                     <input type="hidden" name="idreservasi_dokter" value="{{ $rekamMedis->idreservasi_dokter }}">
                     <small class="text-muted">Reservasi tidak dapat diubah</small>
                 </div>
 
                 <div class="mb-3">
-                    <label for="dokter_pemeriksa" class="form-label">Dokter Pemeriksa <span class="text-danger">*</span></label>
-                    <select name="dokter_pemeriksa" id="dokter_pemeriksa" class="form-select @error('dokter_pemeriksa') is-invalid @enderror" required>
-                        <option value="">-- Pilih Dokter --</option>
-                        @foreach($dokters as $dokter)
-                            <option value="{{ $dokter->iduser }}" {{ old('dokter_pemeriksa', $rekamMedis->dokter_pemeriksa) == $dokter->iduser ? 'selected' : '' }}>
-                                {{ $dokter->nama }}
-                            </option>
-                        @endforeach
-                    </select>
-                    @error('dokter_pemeriksa')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
+                    <label for="dokter_pemeriksa" class="form-label">Dokter Pemeriksa</label>
+                    <input type="text" class="form-control" value="{{ $rekamMedis->dokter->user->nama ?? '-' }}" disabled>
+                    <small class="text-muted">Dokter ditentukan dari reservasi</small>
                 </div>
 
                 <div class="mb-3">
@@ -84,3 +75,5 @@
     </div>
 </div>
 @endsection
+
+

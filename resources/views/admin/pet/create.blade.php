@@ -8,7 +8,7 @@
 
     <div class="card">
         <div class="card-body">
-            <form action="{{ route('pet.store') }}" method="POST">
+            <form action="{{ route('admin.pet.store') }}" method="POST">
                 @csrf
 
                 <div class="row">
@@ -134,7 +134,7 @@
                     <button type="submit" class="btn btn-primary">
                         <i class="fas fa-save"></i> Simpan
                     </button>
-                    <a href="{{ route('pet.index') }}" class="btn btn-secondary">
+                    <a href="{{ route('admin.pet.index') }}" class="btn btn-secondary">
                         <i class="fas fa-arrow-left"></i> Kembali
                     </a>
                 </div>
@@ -169,3 +169,4 @@ document.getElementById('idjenis_hewan').addEventListener('change', function() {
 });
 </script>
 @endsection
+

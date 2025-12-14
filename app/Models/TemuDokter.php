@@ -18,6 +18,10 @@ class TemuDokter extends Model
         'idrole_user'
     ];
 
+    protected $casts = [
+        'waktu_daftar' => 'datetime',
+    ];
+
     public function getRouteKeyName()
     {
         return 'idreservasi_dokter';

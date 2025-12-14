@@ -7,10 +7,46 @@ use App\Models\Owner;
 use App\Models\Pet;
 use App\Models\AnimalType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
+    {
+        $user = Auth::user();
+        
+        // Redirect based on role
+        $roles = $user->roles()->wherePivot('status', '1')->get();
+        
+        foreach ($roles as $role) {
+            switch ($role->idrole) {
+                case 1: // Admin
+                    return $this->adminDashboard();
+                case 2: // Dokter
+                    return redirect()->route('dokter.dashboard');
+                case 3: // Perawat
+                    return redirect()->route('perawat.dashboard');
+                case 4: // Resepsionis
+                    return redirect()->route('resepsionis.dashboard');
+                default:
+                    // Check if user is pemilik
+                    $pemilik = \App\Models\Owner::where('iduser', $user->iduser)->first();
+                    if ($pemilik) {
+                        return redirect()->route('pemilik.dashboard');
+                    }
+            }
+        }
+        
+        // Default fallback
+        return $this->adminDashboard();
+    }
+
+    private function adminDashboard()
     {
         $stats = [
             'total_users' => User::count(),

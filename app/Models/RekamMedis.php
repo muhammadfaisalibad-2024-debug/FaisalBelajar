@@ -24,10 +24,10 @@ class RekamMedis extends Model
         return 'idrekam_medis';
     }
 
-    // Relasi ke User (Dokter/Perawat)
+    // Relasi ke RoleUser (Dokter yang memeriksa)
     public function dokter()
     {
-        return $this->belongsTo(User::class, 'dokter_pemeriksa', 'iduser');
+        return $this->belongsTo(RoleUser::class, 'dokter_pemeriksa', 'idrole_user');
     }
 
     // Relasi ke Temu Dokter (Reservasi)

@@ -31,7 +31,7 @@ class TherapyActionCodeController extends Controller
 
         $this->createTherapyCode($validated);
 
-        return redirect()->route('kode-tindakan-terapi.index')
+        return redirect()->route('admin.kode-tindakan-terapi.index')
                          ->with('success', 'Kode tindakan terapi berhasil ditambahkan.');
     }
 
@@ -58,7 +58,7 @@ class TherapyActionCodeController extends Controller
 
         $kodeTindakanTerapi->update($validated);
 
-        return redirect()->route('kode-tindakan-terapi.index')
+        return redirect()->route('admin.kode-tindakan-terapi.index')
                          ->with('success', 'Kode tindakan terapi berhasil diperbarui.');
     }
 
@@ -67,7 +67,7 @@ class TherapyActionCodeController extends Controller
     {
         $kodeTindakanTerapi->delete();
 
-        return redirect()->route('kode-tindakan-terapi.index')
+        return redirect()->route('admin.kode-tindakan-terapi.index')
                          ->with('success', 'Kode tindakan terapi berhasil dihapus.');
     }
 
@@ -91,3 +91,4 @@ class TherapyActionCodeController extends Controller
         }
     }
 }
+

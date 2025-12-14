@@ -24,7 +24,7 @@
                         <option value="">-- Pilih Reservasi --</option>
                         @foreach($temuDokter as $temu)
                             <option value="{{ $temu->idreservasi_dokter }}" {{ old('idreservasi_dokter') == $temu->idreservasi_dokter ? 'selected' : '' }}>
-                                No. {{ $temu->no_urut }} - {{ $temu->pet->nama ?? 'N/A' }} ({{ $temu->pet->owner->nama ?? 'N/A' }}) - {{ date('d/m/Y H:i', strtotime($temu->waktu_daftar)) }}
+                                No. {{ $temu->no_urut }} - {{ $temu->pet->nama ?? 'N/A' }} ({{ $temu->pet->owner->nama ?? 'N/A' }}) - {{ \Carbon\Carbon::parse($temu->waktu_daftar)->format('d/m/Y H:i') }}
                             </option>
                         @endforeach
                     </select>
@@ -89,3 +89,5 @@
     </div>
 </div>
 @endsection
+
+

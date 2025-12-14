@@ -8,7 +8,7 @@
 
     <div class="card shadow mb-4">
         <div class="card-body">
-            <form action="{{ route('kategori.update', $kategori->idkategori) }}" method="POST">
+            <form action="{{ route('admin.kategori.update', $kategori->idkategori) }}" method="POST">
                 @csrf
                 @method('PUT')
 
@@ -23,7 +23,7 @@
                 </div>
 
                 <div class="d-flex justify-content-between">
-                    <a href="{{ route('kategori.index') }}" class="btn btn-secondary">
+                    <a href="{{ route('admin.kategori.index') }}" class="btn btn-secondary">
                         <i class="fas fa-arrow-left"></i> Kembali
                     </a>
                     <button type="submit" class="btn btn-primary">
@@ -35,3 +35,4 @@
     </div>
 </div>
 @endsection
+

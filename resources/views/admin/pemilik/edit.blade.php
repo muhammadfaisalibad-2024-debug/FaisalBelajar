@@ -8,7 +8,7 @@
 
     <div class="card">
         <div class="card-body">
-            <form action="{{ route('pemilik.update', $pemilik->idpemilik) }}" method="POST">
+            <form action="{{ route('admin.pemilik.update', $pemilik->idpemilik) }}" method="POST">
                 @csrf
                 @method('PUT')
 
@@ -60,7 +60,7 @@
                     <button type="submit" class="btn btn-primary">
                         <i class="fas fa-save"></i> Update
                     </button>
-                    <a href="{{ route('pemilik.index') }}" class="btn btn-secondary">
+                    <a href="{{ route('admin.pemilik.index') }}" class="btn btn-secondary">
                         <i class="fas fa-arrow-left"></i> Kembali
                     </a>
                 </div>
@@ -69,3 +69,5 @@
     </div>
 </div>
 @endsection
+
+

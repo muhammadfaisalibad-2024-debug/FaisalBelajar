@@ -4,7 +4,7 @@
 <div class="container-fluid">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2><i class="fas fa-users"></i> Data Pemilik</h2>
-        <a href="{{ route('pemilik.create') }}" class="btn btn-primary">
+        <a href="{{ route('admin.pemilik.create') }}" class="btn btn-primary">
             <i class="fas fa-plus"></i> Tambah Pemilik
         </a>
     </div>
@@ -44,11 +44,11 @@
                                 </td>
                                 <td>
                                     <div class="btn-group btn-group-sm" role="group">
-                                        <a href="{{ route('pemilik.edit', $owner->idpemilik) }}" 
+                                        <a href="{{ route('admin.pemilik.edit', $owner->idpemilik) }}" 
                                            class="btn btn-warning" title="Edit">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <form action="{{ route('pemilik.destroy', $owner->idpemilik) }}" 
+                                        <form action="{{ route('admin.pemilik.destroy', $owner->idpemilik) }}" 
                                               method="POST" 
                                               class="d-inline"
                                               onsubmit="return confirm('Yakin ingin menghapus data ini?')">
@@ -77,3 +77,5 @@
     </div>
 </div>
 @endsection
+
+

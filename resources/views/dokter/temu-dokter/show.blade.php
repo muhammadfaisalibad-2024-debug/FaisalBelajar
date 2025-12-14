@@ -25,7 +25,7 @@
                 </tr>
                 <tr>
                     <th>Waktu Daftar</th>
-                    <td>{{ date('d F Y H:i', strtotime($temuDokter->waktu_daftar)) }}</td>
+                    <td>{{ \Carbon\Carbon::parse($temuDokter->waktu_daftar)->format('d F Y H:i') }}</td>
                 </tr>
                 <tr>
                     <th>Pet</th>
@@ -68,3 +68,5 @@
     </div>
 </div>
 @endsection
+
+

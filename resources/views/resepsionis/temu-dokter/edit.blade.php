@@ -27,7 +27,7 @@
 
                 <div class="mb-3">
                     <label class="form-label">Waktu Daftar</label>
-                    <input type="text" class="form-control" value="{{ date('d/m/Y H:i', strtotime($temuDokter->waktu_daftar)) }}" disabled>
+                    <input type="text" class="form-control" value="{{ \Carbon\Carbon::parse($temuDokter->waktu_daftar)->format('d/m/Y H:i') }}" disabled>
                     <small class="text-muted">Waktu daftar tidak dapat diubah</small>
                 </div>
 
@@ -87,3 +87,5 @@
     </div>
 </div>
 @endsection
+
+

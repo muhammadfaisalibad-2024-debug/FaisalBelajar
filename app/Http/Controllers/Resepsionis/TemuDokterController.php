@@ -26,7 +26,7 @@ class TemuDokterController extends Controller
         }
 
         $temuDokter = TemuDokter::with(['pet.owner', 'roleUser.user', 'roleUser.role'])
-            ->orderBy('waktu_daftar', 'desc')
+            ->orderBy('no_urut', 'asc')
             ->paginate(10);
         return view('resepsionis.temu-dokter.index', compact('temuDokter'));
     }
@@ -41,9 +41,9 @@ class TemuDokterController extends Controller
         }
 
         $pets = Pet::with('owner')->orderBy('nama')->get();
-        // Get role_user untuk dokter (idrole = 9)
+        // Get role_user untuk dokter (idrole = 2)
         $dokters = \App\Models\RoleUser::with('user')
-            ->where('idrole', 9)
+            ->where('idrole', 2)
             ->where('status', 1)
             ->get();
         
@@ -80,7 +80,7 @@ class TemuDokterController extends Controller
         $temuDokter = TemuDokter::findOrFail($id);
         $pets = Pet::with('owner')->orderBy('nama')->get();
         $dokters = \App\Models\RoleUser::with('user')
-            ->where('idrole', 9)
+            ->where('idrole', 2)
             ->where('status', 1)
             ->get();
         
@@ -138,7 +138,7 @@ class TemuDokterController extends Controller
             // Get no_urut terakhir untuk hari ini
             $lastNoUrut = TemuDokter::whereDate('waktu_daftar', today())->max('no_urut') ?? 0;
             $data['no_urut'] = $lastNoUrut + 1;
-            $data['waktu_daftar'] = now();
+            $data['waktu_daftar'] = now()->format('Y-m-d H:i:s');
 
             return TemuDokter::create($data);
         } catch (\Exception $e) {
