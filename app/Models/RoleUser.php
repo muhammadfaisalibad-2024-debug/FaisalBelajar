@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use App\Traits\SoftDeletesWithUser;
 use Illuminate\Database\Eloquent\Model;
 
 class RoleUser extends Model
 {
+    use SoftDeletesWithUser;
     protected $table = 'role_user';
     protected $primaryKey = 'idrole_user';
     public $timestamps = false;

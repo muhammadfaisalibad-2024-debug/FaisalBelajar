@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\SoftDeletesWithUser;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class TherapyActionCode extends Model
 {
+    use SoftDeletesWithUser;
     public $timestamps = false; // Disable timestamps untuk tabel native
 
     protected $table = 'kode_tindakan_terapi';

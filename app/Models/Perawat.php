@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use App\Traits\SoftDeletesWithUser;
 use Illuminate\Database\Eloquent\Model;
 
 class Perawat extends Model
 {
+    use SoftDeletesWithUser;
     protected $table = 'perawat';
     protected $primaryKey = 'id_perawat';
     public $timestamps = false;

@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\SoftDeletesWithUser;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ClinicalCategory extends Model
 {
+    use SoftDeletesWithUser;
     public $timestamps = false; 
 
     protected $table = 'kategori_klinis';

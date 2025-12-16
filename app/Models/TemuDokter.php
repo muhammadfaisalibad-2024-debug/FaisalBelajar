@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use App\Traits\SoftDeletesWithUser;
 use Illuminate\Database\Eloquent\Model;
 
 class TemuDokter extends Model
 {
+    use SoftDeletesWithUser;
     protected $table = 'temu_dokter';
     protected $primaryKey = 'idreservasi_dokter';
     public $timestamps = false;

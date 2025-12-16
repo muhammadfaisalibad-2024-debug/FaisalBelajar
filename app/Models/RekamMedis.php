@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use App\Traits\SoftDeletesWithUser;
 use Illuminate\Database\Eloquent\Model;
 
 class RekamMedis extends Model
 {
+    use SoftDeletesWithUser;
     protected $table = 'rekam_medis';
     protected $primaryKey = 'idrekam_medis';
     public $timestamps = false;
