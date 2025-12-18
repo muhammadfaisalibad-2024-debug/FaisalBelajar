@@ -120,7 +120,7 @@
                                    class="form-control @error('tanggal_lahir') is-invalid @enderror" 
                                    id="tanggal_lahir" 
                                    name="tanggal_lahir" 
-                                   value="{{ old('tanggal_lahir', $pet->tanggal_lahir) }}">
+                                   value="{{ old('tanggal_lahir') ?? ($pet->tanggal_lahir ? $pet->tanggal_lahir->format('Y-m-d') : '') }}">
                             @error('tanggal_lahir')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror

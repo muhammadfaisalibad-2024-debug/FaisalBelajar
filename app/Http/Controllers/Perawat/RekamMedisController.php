@@ -56,11 +56,11 @@ class RekamMedisController extends Controller
         }
 
         $temuDokter = TemuDokter::with('pet.owner')
-            ->whereDoesntHave('rekamMedis') // Hanya reservasi yang belum ada rekam medis
+            ->whereDoesntHave('rekamMedis')
             ->orderBy('waktu_daftar', 'desc')
             ->get();
         $users = User::whereHas('roles', function($q) {
-            $q->whereIn('role.idrole', [3, 2]); // Perawat atau Dokter
+            $q->whereIn('role.idrole', [3, 2]); 
         })->orderBy('nama')->get();
         
         return view('perawat.rekam-medis.create', compact('temuDokter', 'users'));

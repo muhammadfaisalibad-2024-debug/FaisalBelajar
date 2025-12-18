@@ -41,7 +41,6 @@ class TemuDokterController extends Controller
         }
 
         $pets = Pet::with('owner')->orderBy('nama')->get();
-        // Get role_user untuk dokter (idrole = 2)
         $dokters = \App\Models\RoleUser::with('user')
             ->where('idrole', 2)
             ->where('status', 1)
